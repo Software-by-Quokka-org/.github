@@ -1,0 +1,20 @@
+name: Add issues to project
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  add-to-project:
+    name: Add issue to project
+    runs-on: ubuntu-latest
+    if: contains(github.event.issue.labels.*.name, 'bug') || contains(github.event.issue.labels.*.name, 'enhancement')
+    steps:
+      - name: Add to project
+        uses: actions/add-to-project@v1.0.2
+        with:
+          # Use the project ID, not the project number
+          # You can find this by running: gh project list --owner Software-by-Quokka-org
+          # Or by inspecting the project URL in your browser
+          project-url: PVT_kwDOCCJDsc4A7yNy
+          github-token: ${{ secrets.GITHUB_TOKEN }}
