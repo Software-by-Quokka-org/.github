@@ -8,11 +8,20 @@ jobs:
   add-to-project:
     name: Add issue to project
     runs-on: ubuntu-latest
+    environment: general
     if: contains(github.event.issue.labels.*.name, 'bug') || contains(github.event.issue.labels.*.name, 'enhancement')
     steps:
+      # Generate a token from your GitHub App
+      - name: Generate token
+        id: generate_token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      # Add to project using the generated token
       - name: Add to project
         uses: actions/add-to-project@v1.0.2
         with:
           project-url: https://github.com/orgs/Software-by-Quokka-org/projects/9
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          project-id: PVT_kwDOCCJDsc4A7yNy
+          github-token: ${{ steps.generate_token.outputs.token }}
