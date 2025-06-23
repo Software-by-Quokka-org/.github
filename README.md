@@ -67,4 +67,4 @@ Once set up:
 
 **Need the App credentials?**
 - Contact your team lead or organization admin
-- They can provide the APP_ID and download a new private key if needed
+- They can provide the APP_ID and download the private key .pem if needed
